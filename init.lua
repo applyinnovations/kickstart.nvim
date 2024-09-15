@@ -566,8 +566,19 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
+        gopls = {},
+        jsonls = {
+          settings = {
+            json = {
+              format = {
+                enable = true,
+              },
+            },
+            validate = { enable = true },
+          },
+        },
+        pyright = {},
+        html = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -575,7 +586,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
 
         lua_ls = {
@@ -886,6 +897,11 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
+
+  { -- Vim trainer to help practise vim bindings
+    'https://github.com/Weyaaron/nvim-training',
+    pin = true,
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -910,3 +926,12 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Training exercise configuration
+local training = require 'nvim-training'
+training.setup {
+  task_list = { 'MoveEndOfLine', 'MoveStartOfLine' }, -- This is a list of strings that will be resolved to the actual tasks. (Mandatory)
+  task_scheduler = 'RandomScheduler', -- The default scheduler will pick a new tasks at random from the provided list. (Mandatory)
+  possible_marks_list = { 'a', 'b', 'c', 'r', 's', 't', 'd', 'n', 'e' }, --A list of possible marks. (Optional, this is the default)
+  possible_register_list = { 'a', 'b', 'c', 'r', 's', 't', 'd', 'n', 'e' }, -- A list of possible registers. (Optional, this the default)
+}
