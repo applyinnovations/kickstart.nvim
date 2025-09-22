@@ -982,22 +982,32 @@ require('lazy').setup({
         auto_suggestions = false,
         auto_apply_diff_after_generation = false,
         minimize_diff = true,
-        enable_fastapply = true,
+        enable_fastapply = false,
         auto_approve_tool_permissions = false,
       },
       web_search_engine = {
         provider = 'google',
         proxy = nil,
       },
-      providers = {
-        morph = { model = 'auto' },
-        claude = {
-          endpoint = 'https://api.anthropic.com',
-          model = 'claude-3-haiku-20240307',
-          timeout = 30000, -- Timeout in milliseconds
-          extra_request_body = {
-            temperature = 0.3,
-            max_tokens = 4096,
+      -- providers = {
+      --   claude = {
+      --     endpoint = 'https://api.anthropic.com',
+      --     model = 'claude-3-haiku-20240307',
+      --     timeout = 30000, -- Timeout in milliseconds
+      --     extra_request_body = {
+      --       temperature = 0.3,
+      --       max_tokens = 4096,
+      --     },
+      --   },
+      -- },
+      acp_providers = {
+        ['gemini-cli'] = {
+          command = 'gemini',
+          args = { '--experimental-acp' },
+          env = {
+            NODE_NO_WARNINGS = '1',
+            HOME = os.getenv 'HOME',
+            GEMINI_API_KEY = os.getenv 'GEMINI_API_KEY',
           },
         },
       },
