@@ -301,7 +301,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -382,7 +382,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -490,7 +490,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',    opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -976,33 +976,25 @@ require('lazy').setup({
     ---@module 'avante'
     ---@type avante.Config
     opts = {
+      mode = 'legacy',
       -- add any opts here
       -- this file can contain specific instructions for your project
       instructions_file = 'avante.md',
       -- for example
       provider = 'gemini-cli',
       behaviour = {
+        auto_focus_sidebar = false,
         auto_suggestions = false,
-        auto_apply_diff_after_generation = false,
+        auto_suggestions_respect_ignore = false,
+        auto_set_highlight_group = true,
+        auto_set_keymaps = true,
+        auto_apply_diff_after_generation = true,
+        auto_focus_on_diff_view = false,
+        jump_result_buffer_on_finish = true,
         minimize_diff = true,
         enable_fastapply = false,
-        auto_approve_tool_permissions = false,
+        auto_approve_tool_permissions = { 'search', 'read_file' },
       },
-      web_search_engine = {
-        provider = 'google',
-        proxy = nil,
-      },
-      -- providers = {
-      --   claude = {
-      --     endpoint = 'https://api.anthropic.com',
-      --     model = 'claude-3-haiku-20240307',
-      --     timeout = 30000, -- Timeout in milliseconds
-      --     extra_request_body = {
-      --       temperature = 0.3,
-      --       max_tokens = 4096,
-      --     },
-      --   },
-      -- },
       acp_providers = {
         ['gemini-cli'] = {
           command = 'gemini',
@@ -1010,8 +1002,10 @@ require('lazy').setup({
           env = {
             NODE_NO_WARNINGS = '1',
             HOME = os.getenv 'HOME',
-            GEMINI_API_KEY = os.getenv 'GEMINI_API_KEY',
           },
+          auth_method = 'OAuth',
+          -- disabled_tools = { 'python', 'edit' },
+          -- rag_search, python, git_diff, git_commit, glob, search_keyword, read_file_toplevel_symbols, read_file, create_file, move_path, copy_path, delete_path, create_dir, bash, web_search, fetch
         },
       },
     },
