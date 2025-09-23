@@ -23,16 +23,24 @@ return {
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = true,
       auto_focus_on_diff_view = true,
-      jump_result_buffer_on_finish = true,
+      jump_result_buffer_on_finish = false,
       minimize_diff = true,
       enable_fastapply = false,
       auto_approve_tool_permissions = false,
+    },
+    web_search_engine = {
+      provider = 'google',
+      providers = {
+        google = {
+          GOOGLE_SEARCH_API_KEY = os.getenv 'GOOGLE_SEARCH_API_KEY',
+          GOOGLE_SEARCH_ENGINE_ID = os.getenv 'GOOGLE_SEARCH_ENGINE_ID',
+        },
+      },
     },
     providers = {
       xai = {
         model = 'grok-code-fast-1',
         XAI_API_KEY = os.getenv 'XAI_API_KEY',
-        disabled_tools = { 'bash', 'python', 'run_python' },
       },
     },
     acp_providers = {
