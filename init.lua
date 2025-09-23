@@ -976,24 +976,30 @@ require('lazy').setup({
     ---@module 'avante'
     ---@type avante.Config
     opts = {
-      mode = 'legacy',
+      mode = 'agentic',
       -- add any opts here
       -- this file can contain specific instructions for your project
       instructions_file = 'avante.md',
       -- for example
-      provider = 'gemini-cli',
+      provider = 'xai',
       behaviour = {
         auto_focus_sidebar = false,
         auto_suggestions = false,
-        auto_suggestions_respect_ignore = false,
+        auto_suggestions_respect_ignore = true,
         auto_set_highlight_group = true,
         auto_set_keymaps = true,
-        auto_apply_diff_after_generation = true,
-        auto_focus_on_diff_view = false,
+        auto_apply_diff_after_generation = false,
+        auto_focus_on_diff_view = true,
         jump_result_buffer_on_finish = true,
         minimize_diff = true,
         enable_fastapply = false,
-        auto_approve_tool_permissions = { 'search', 'read_file' },
+        auto_approve_tool_permissions = false,
+      },
+      providers = {
+        xai = {
+          model = 'grok-code-fast-1',
+          XAI_API_KEY = os.getenv 'XAI_API_KEY',
+        },
       },
       acp_providers = {
         ['gemini-cli'] = {
@@ -1007,6 +1013,114 @@ require('lazy').setup({
           -- disabled_tools = { 'python', 'edit' },
           -- rag_search, python, git_diff, git_commit, glob, search_keyword, read_file_toplevel_symbols, read_file, create_file, move_path, copy_path, delete_path, create_dir, bash, web_search, fetch
         },
+      },
+      repo_map = {
+        ignore_patterns = {
+          -- Version control
+          '%.git',
+          '%.worktree',
+          '%.svn',
+          '%.hg',
+
+          -- Dependency directories
+          'node_modules',
+          'vendor',
+          'deps',
+          'target',
+          'packages',
+          'lib',
+          'bin',
+          'obj',
+          '_build',
+          'ebin',
+          'dist',
+          'build',
+          'out',
+
+          -- Cache directories
+          '__pycache__',
+          '.cache',
+          '.npm',
+          '.yarn-integrity',
+          '.gradle',
+          '.mvn',
+          '.mix',
+          '.erlang.mk',
+          '.dart_tool',
+          '.swiftpm',
+          '.sass-cache',
+          '.bundle',
+          '.luarocks',
+          '.cpan',
+          '.Rproj.user',
+
+          -- Build artifacts
+          '*.o',
+          '*.obj',
+          '*.exe',
+          '*.dll',
+          '*.so',
+          '*.a',
+          '*.lib',
+          '*.jar',
+          '*.war',
+          '*.class',
+          '*.pyc',
+          '*.pyo',
+          '*.pyd',
+          '*.beam',
+          '*.app',
+          '*.tsbuildinfo',
+          'Cargo.lock',
+          'go.sum',
+          'composer.lock',
+          'Gemfile.lock',
+          'yarn.lock',
+          'package-lock.json',
+          'mix.lock',
+          'rebar.lock',
+          'Manifest.toml',
+
+          -- Logs and temp files
+          '*.log',
+          '*.tmp',
+          '*.bak',
+          '*.swp',
+          '*.swo',
+          '.DS_Store',
+          'Thumbs.db',
+          'Desktop.ini',
+          '.Trash',
+
+          -- IDE and editor files
+          '.vscode',
+          '.idea',
+          '.vs',
+
+          -- Sensitive files
+          '*.pem',
+          '*.key',
+          '*.crt',
+          '*.cer',
+          '*.p12',
+          '*.pfx',
+          '*.jks',
+          '*.gpg',
+          '*.enc',
+          'env*',
+          '.env*',
+          'secrets*',
+          '.secrets*',
+          'keys.txt',
+          '*.tfstate',
+          '.terraform',
+        },
+      },
+      selector = {
+        provider = 'telescope',
+      },
+      input = {
+        provider = 'snacks',
       },
     },
     dependencies = {
