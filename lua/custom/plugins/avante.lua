@@ -155,6 +155,7 @@ return {
         '.secrets*',
         'keys.txt',
         '*.tfstate',
+        '*.tfvars',
         '.terraform',
       },
     },
