@@ -14,6 +14,7 @@ return {
     -- this file can contain specific instructions for your project
     instructions_file = 'avante.md',
     -- for example
+    disabled_tools = { 'python', 'bash' },
     provider = 'xai',
     behaviour = {
       auto_focus_sidebar = false,
