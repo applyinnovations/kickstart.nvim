@@ -2,9 +2,14 @@ return {
   'folke/sidekick.nvim',
   opts = {
     -- add any options here
+    nes = {
+      diff = {
+        inline = 'chars',
+      },
+    },
     cli = {
       mux = {
-        backend = 'zellij',
+        backend = 'tmux',
         enabled = true,
       },
     },
